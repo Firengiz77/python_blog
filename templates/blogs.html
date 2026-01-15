@@ -1,9 +1,7 @@
-  {% extends 'layouts/base.html' %}
+{% extends 'layouts/base.html' %}
 
-  {% block context %}
-
+{% block context %}
   <main class="container">
-
       <div class="row mb-2">
         <!-- feature blogs -->
          <h3 class="pb-4 mb-4 fst-italic border-bottom">Category - {{ category.name }}</h3>
@@ -23,7 +21,7 @@
                     {{ item.description|truncatechars:50 }}
               </p>
               <a
-                href="#"
+                href="{% url 'blogs_by_category' item.slug %}"
                 class="icon-link gap-1 icon-link-hover stretched-link"
               >
                 Continue reading
@@ -40,9 +38,5 @@
         <p>No Blogs</p>
         {% endif %}
       </div>
-
-   
     </main>
-
-
-    {% endblock %}
+{% endblock %}

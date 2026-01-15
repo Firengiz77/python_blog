@@ -15,4 +15,11 @@ def blogs_by_category(request,category_id):
     }
     return render(request,'blogs.html',data)
 
+def blogs(request, slug):
+    # blog = Blog.objects.filter(slug=slug)
+    blog = get_object_or_404(Blog, slug=slug, status=1)
 
+    data = {
+        'blog':blog
+    }
+    return render(request, 'blog.html',data)
