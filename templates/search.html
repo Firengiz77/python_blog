@@ -1,0 +1,42 @@
+{% extends 'layouts/base.html' %}
+
+{% block context %}
+  <main class="container">
+      <div class="row mb-2">
+        <!-- feature blogs -->
+         <h3 class="pb-4 mb-4 fst-italic border-bottom">Search term - {{ keyword }}</h3>
+         {% if blogs %}
+         {% for item in blogs %}
+        <div class="col-md-6">
+          <div
+            class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+          >
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-primary-emphasis"
+                >{{ item.category }}</strong
+              >
+              <h3 class="mb-0">{{ item.title }}</h3>
+              <div class="mb-1 text-body-secondary">{{ item.created_at|date:"M d, Y" }}</div>
+              <p class="card-text mb-auto">
+                    {{ item.description|truncatechars:50 }}
+              </p>
+              <a
+                href="{% url 'blogs' item.slug %}"
+                class="icon-link gap-1 icon-link-hover stretched-link"
+              >
+                Continue reading
+                <svg class="bi" aria-hidden="true">
+                  <use xlink:href="#chevron-right"></use>
+                </svg>
+              </a>
+            </div>
+           
+          </div>
+        </div>
+         {% endfor %}
+        {% else %}
+        <p>No Blogs</p>
+        {% endif %}
+      </div>
+    </main>
+{% endblock %}

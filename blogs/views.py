@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from blogs.models import Blog, Category
-
+from django.db.models import Q
 
 def blogs_by_category(request,category_id):
     blogs = Blog.objects.filter(status=1,category=category_id)
@@ -23,3 +23,12 @@ def blogs(request, slug):
         'blog':blog
     }
     return render(request, 'blog.html',data)
+
+def search(request):
+    keyword = request.GET.get('keyword')
+    blogs = Blog.objects.filter(Q(title__icontains=keyword) | Q(description__icontains=keyword),status=1)
+    data ={
+        'blogs':blogs,
+        'keyword':keyword
+    }
+    return render(request,'search.html',data)
