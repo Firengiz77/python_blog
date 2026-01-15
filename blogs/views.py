@@ -14,3 +14,5 @@ def blogs_by_category(request,category_id):
         'category':category
     }
     return render(request,'blogs.html',data)
+
+
