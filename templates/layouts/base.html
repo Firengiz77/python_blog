@@ -258,7 +258,7 @@
             <a class="btn btn-sm btn-outline-secondary mr-4" href="{% url 'login' %}">Login</a>
             <a class="btn btn-sm btn-outline-warning" href="{% url 'register' %}">Register</a>
             {% else %}
-            <span>Welcome, {{ user }}</span>
+             <a class="btn btn-sm btn-outline-warning" href="{% url 'dashboard' %}">Dashboard</a>
             <a class="btn btn-sm btn-outline-warning" href="{% url 'logout' %}">Logout</a>
             {% endif%}
           </div>

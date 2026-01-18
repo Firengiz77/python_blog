@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+
+{% block context %}
+  <main class="container">
+    <div class="row mb-2">
+        <h3>All Categories</h3>
+
+        <!-- sidebar -->
+        {% include 'layouts/sidebar.html' %}
+
+        <div class="col-lg-9">
+            <a href="{% url 'category.create' %}" class="btn btn-success float-right">Add Category</a>
+            <div class="row">
+                <!-- Categories -->
+                <div class="col">
+                   <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                          <th scope="col">Created at</th>
+                        <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for item in categories %}
+                        <tr>
+                        <th scope="row">{{ item.id }}</th>
+                        <td>{{ item.name }}</td>
+                          <td>{{ item.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            <a href="{% url 'category.edit' item.id %}" class="btn btn-warning">Edit</a>
+                            <a href="{% url 'category.delete' item.id %}" class="btn btn-danger">Delete</a>
+                        </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}

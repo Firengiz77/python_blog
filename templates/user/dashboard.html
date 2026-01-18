@@ -1,0 +1,41 @@
+{% extends 'layouts/base.html' %}
+
+{% block context %}
+  <main class="container">
+    <div class="row mb-2">
+        <h3>Welcome, {{ user }}</h3>
+
+            <!-- sidebar -->
+             {% include 'layouts/sidebar.html' %}
+
+
+        <div class="col-lg-9">
+            <div class="row">
+                <!-- Categories -->
+                <div class="col">
+                    <div class="card border-default mb-3">
+                        <div class="card-header text-center text-uppercase">All Categories</div>
+                        <div class="card-body text-dark "> 
+                            <div class="card-title text-center">{{ category_count }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blogs -->
+                 <div class="col">
+                    <div class="card border-default mb-3">
+                        <div class="card-header text-center text-uppercase">All Blogs</div>
+                        <div class="card-body text-dark "> 
+                            <div class="card-title text-center">{{ blogs_count }}</div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}

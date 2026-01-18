@@ -1,0 +1,30 @@
+{% extends 'layouts/base.html' %}
+
+{% block context %}
+{% load crispy_forms_tags %}
+
+  <main class="container">
+    <div class="row mb-2">
+        <h3>Edit Category</h3>
+
+            <!-- sidebar -->
+             {% include 'layouts/sidebar.html' %}
+
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col">
+
+                    <form action="{% url 'category.update' category.id %}" method="POST">
+                        {% csrf_token %}
+
+                        {{ form | crispy }}
+
+                        <button type="submit" class="btn btn-success">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}

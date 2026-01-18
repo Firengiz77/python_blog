@@ -1,0 +1,8 @@
+    <div class="col-lg-3">
+            <div class="nav flex-column nav-pills bg-light" aria-orientation="vertical">
+                <a href="{% url 'dashboard' %}" class="nav-link text-dark   {% if request.resolver_match.url_name == 'dashboard'  %} bg-warning {% endif %}" style="margin-top:10px">Dashboard</a>
+                <a href="{% url 'categories' %}" class="nav-link text-dark   {% if request.resolver_match.url_name == 'categories'  %} bg-warning {% endif %}" style="margin-top:10px">Categories</a>
+                <a href="{% url 'blogs' %}" class="nav-link text-dark {% if request.resolver_match.url_name == 'blogs'  %} bg-warning {% endif %}" style="margin-top:10px">Blogs</a>
+                   <a href="{% url 'logout' %}" class="nav-link text-dark bg-danger" style="margin-top:10px">Logout</a>
+            </div>
+        </div>
