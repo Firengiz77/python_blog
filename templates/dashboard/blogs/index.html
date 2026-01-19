@@ -1,0 +1,49 @@
+{% extends 'layouts/base.html' %}
+
+{% block context %}
+  <main class="container">
+    <div class="row mb-2">
+        <h3>All Blogs</h3>
+
+        <!-- sidebar -->
+        {% include 'layouts/sidebar.html' %}
+
+        <div class="col-lg-9">
+            <a href="{% url 'blogs.create' %}" class="btn btn-success float-right">Add Blog</a>
+            <div class="row">
+                <!-- Blogs -->
+                <div class="col">
+                   <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                         <th scope="col">Category</th>
+                         <th scope="col">Title</th>
+                          <th scope="col">Created at</th>
+                         <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for item in blogs %}
+                        <tr>
+                        <th scope="row">{{ item.id }}</th>
+                          <td>{{ item.title }}</td>
+                          <td>{{ item.title }}</td>
+                          <td>{{ item.created_at|date:"M d, Y" }}</td>
+                          <td>
+                            <a href="{% url 'blogs.edit' item.id %}" class="btn btn-warning">Edit</a>
+                            <a href="{% url 'blogs.delete' item.id %}" class="btn btn-danger">Delete</a>
+                        </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}

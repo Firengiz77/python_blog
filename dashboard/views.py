@@ -3,8 +3,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from blogs.models import Blog, Category
 from django.contrib.auth.decorators import login_required
 
-from dashboard.forms import CategoryForms
-
+from dashboard.forms import BlogForms, CategoryForms
+from django.template.defaultfilters import slugify
 
 @login_required(login_url='login')
 def dashboard(request):
@@ -18,6 +18,8 @@ def dashboard(request):
     return render(request,'user/dashboard.html',data)
 
 
+
+# Category crud
 def categories(request):
     categories = Category.objects.filter()
 
@@ -64,8 +66,6 @@ def category_update(request,id):
     else:
      return redirect('categories')
 
-
-
 def category_delete(request,id):
      category = get_object_or_404(Category,pk=id) 
      category.delete()
@@ -74,7 +74,57 @@ def category_delete(request,id):
 
 
 
+# Blogs crud
 
 def blogs(request):
-    return render(request,'dashboard/blogs.html')
+    blogs = Blog.objects.all()
+    data ={
+        'blogs':blogs
+    }
+    return render(request,'dashboard/blogs/index.html',data)
+
+def blogs_create(request):
+     form = BlogForms()
+     data = {
+            'form':form
+        } 
+     return render(request,'dashboard/blogs/create.html',data)
+
+def blogs_store(request):
+    form = BlogForms(request.POST,request.FILES)
+    if form.is_valid:
+        blog = form.save(commit=False)
+        blog.author = request.user
+        blog.save()
+        blog.slug = slugify(form.cleaned_data['title'])
+        blog.save()
+        return redirect('blogs')
+    else:
+     print('Is not valid')
+     return redirect('blogs')
+
+def blogs_edit(request,id):
+     blog = get_object_or_404(Blog,pk=id) 
+     form = BlogForms(instance=blog)
+     data = {
+            'form':form,
+            'blog':blog
+        } 
+     return render(request,'dashboard/blogs/edit.html',data)
+
+def blogs_update(request,id):
+    blogs = get_object_or_404(Blog,pk=id) 
+    form = BlogForms(request.POST,request.FILES,instance=blogs,)
+    if form.is_valid:
+        blog = form.save()
+        blog.slug = slugify(form.cleaned_data['title'])
+        blog.save()
+        return redirect('blogs')
+    else:
+     return redirect('blogs')
+
+def blogs_delete(request,id):
+     blog = get_object_or_404(Blog,pk=id) 
+     blog.delete()
+     return redirect('blogs')
 
